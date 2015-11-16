@@ -131,9 +131,9 @@ def convertsqloutput(c):
 def deletetable(tableID):
    conn=sqlite3.connect('example.db')
    c = conn.cursor()
-   if (tableID == 1): # prints table of users
+   if (tableID == 1): # deletes table of users
       c.execute('DROP TABLE IF EXISTS users')
-   elif (tableID == 2): # prints table of items
+   elif (tableID == 2): # deletes table of items
       c.execute('DROP TABLE IF EXISTS items')
    else:
       print "Incorrect tableID set"
@@ -145,10 +145,10 @@ def deletetable(tableID):
 def createtable(tableID):
    conn=sqlite3.connect('example.db')
    c = conn.cursor()
-   if (tableID == 1): # prints table of users
+   if (tableID == 1): # creates table of users
       c.execute('''CREATE TABLE users
             (userid BIGINT, userfname VARCHAR(20), userlname VARCHAR(20), useraddress VARCHAR(50), useremail VARCHAR(25), userphone VARCHAR(20), usertype SMALLINT, userfine DECIMAL(2,2), usermaxloan SMALLINT, useritemid1 BIGINT, useritemid2 BIGINT, useritemid3 BIGINT, useritemid4 BIGINT, useritemid5 BIGINT, userloan SMALLINT, userstatus SMALLINT)''')
-   elif (tableID == 2): # prints table of items
+   elif (tableID == 2): # creates table of items
       c.execute('''CREATE TABLE items
             (itemid BIGINT, itemname VARCHAR(50), itemtype SMALLINT, itemauthor VARCHAR(40), itempublisher VARCHAR(40), itemISBN_10 VARCHAR(20), itemartist VARCHAR(40), itemproducer VARCHAR(40), itempubyear INTEGER, itemadddate DATE, itemgenre SMALLINT, itemlanguage SMALLINT, itemstatus SMALLINT, itemloandate DATE, itemretdate DATE, itemuserid BIGINT)''')
    else:
@@ -416,16 +416,16 @@ def queryitemsbynameauthor(itemNAME, itemAUTHOR):
 def queryall(tableID):
    conn=sqlite3.connect('example.db')
    c = conn.cursor()
-   if (tableID == 1): # queries all users
+   if (tableID == 1): # queries basic fields of all users from users table
       for row in c.execute('SELECT userid, userfname, userlname, userphone, useremail FROM users ORDER BY userid ASC'):
          print row
-   elif (tableID == 2): # queries all items
+   elif (tableID == 2): # queries basic fields of all items from items table
       for row in c.execute('SELECT itemid, itemname, itemauthor, itemartist FROM items ORDER BY itemname ASC'):
          print row
-   elif (tableID == 3): # queries all users
+   elif (tableID == 3): # queries all the fields of all users from the users table
       for row in c.execute('SELECT * FROM users ORDER BY userid ASC'):
          print row
-   elif (tableID == 4): # queries all items
+   elif (tableID == 4): # queries all the fields of all items from the items table
       for row in c.execute('SELECT * FROM items ORDER BY itemname ASC'):
          print row
    conn.close()
